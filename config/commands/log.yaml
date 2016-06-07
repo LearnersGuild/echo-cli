@@ -3,19 +3,26 @@
 command:
   name: log
   description: log reflections
-  usage: log [-r | -r<num> <...reflection>]
+  usage: log [options] [response]
   options:
     -
-      name: reflection
+      name: retro
       abbr: r
-      help: Without a number argument, show list of retrospective questions for reflection. Provide a number to show the reflection question, and to log a reflection for the question.
+      help: Show list of retrospective questions for current retrospective. Use in conjunction with the `-q<id>` option to display and respond to retrospective questions.
+    -
+      name: question
+      abbr: q
+      help: Show a question with the id provided. Provide a response argument to log a response for the question.
   examples:
     -
-      example: log -r
-      description: Show retrospective status and questions.
+      example: log --retro
+      description: Show retrospective status and list of questions.
     -
-      example: log -r2
+      example: log -r -q2
       description: Show retrospective question number 2.
     -
-      example: log -r2 "So far so good"
-      description: Answer retrospective question 2 with a reflection message.
+      example: log -r -q2 "So far so good"
+      description: Respond to retrospective question 2 with a message.
+    -
+      example: log -rq 2 "So far so good"
+      description: Alternate option syntax for responding to retrospective question 2.
