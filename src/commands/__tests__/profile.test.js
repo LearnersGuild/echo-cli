@@ -21,7 +21,7 @@ describe(testContext(__filename), function () {
     })
 
     it('notifies with the usage message when requested', notifiesWithUsageMessageForDashH)
-    it('notifies with the usage message if arguments are supplied', notifiesWithUsageHintForInvalidArgs(['ANYTHING']))
+    it('notifies with the usage hint if arguments are supplied', notifiesWithUsageHintForInvalidArgs(['ANYTHING']))
 
     it('notifies that the profile is being loaded', function () {
       return this.invoke([], this.notify)
