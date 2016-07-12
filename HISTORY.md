@@ -3,6 +3,7 @@
 #### 0.14.0
 - add `/retro` command
 - remove `/log` command
+- update `/review` command to match game API changes related to new-retro
 
 #### 0.13.2
 - bump subcli to 0.2.3

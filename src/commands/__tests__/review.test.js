@@ -58,7 +58,7 @@ describe(testContext(__filename), function () {
             project: {artifactURL: 'http://artifact.example.com'},
             completed: false,
             responses: [
-              {questionName: 'completeness', response: {value: 8}},
+              {questionName: 'completeness', values: [{value: 8}]},
             ]
           }}})
 
@@ -78,7 +78,7 @@ describe(testContext(__filename), function () {
             project: {artifactURL: undefined},
             completed: false,
             responses: [
-              {questionName: 'completeness', response: {value: 8}},
+              {questionName: 'completeness', values: [{value: 8}]},
             ]
           }}})
 
@@ -96,8 +96,8 @@ describe(testContext(__filename), function () {
             project: {artifactURL: 'http://artifact.example.com'},
             completed: true,
             responses: [
-              {questionName: 'completeness', response: {value: 8}},
-              {questionName: 'quality', response: {value: 9}},
+              {questionName: 'completeness', values: [{value: 8}]},
+              {questionName: 'quality', values: [{value: 9}]},
             ]
           }}})
 
@@ -142,8 +142,8 @@ describe(testContext(__filename), function () {
           project: {artifactURL: 'http://artifact.example.com'},
           completed: true,
           responses: [
-            {questionName: 'completeness', response: {value: 8}},
-            {questionName: 'quality', response: {value: 9}},
+            {questionName: 'completeness', values: [{value: 8}]},
+            {questionName: 'quality', values: [{value: 9}]},
           ]
         }}})
 
@@ -168,7 +168,7 @@ describe(testContext(__filename), function () {
             project: {artifactURL: 'http://artifact.example.com'},
             completed: false,
             responses: [
-              {questionName: scoreName, response: {value: 89}},
+              {questionName: scoreName, values: [{value: 89}]},
             ]
           }}})
 
