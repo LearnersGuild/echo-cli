@@ -2,6 +2,7 @@
 ---
 command:
   name: log
+  _inactive: true
   description: log reflections
   usage: log [options] [response]
   options:

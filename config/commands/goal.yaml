@@ -2,6 +2,7 @@
 ---
 command:
   name: goal
+  _inactive: true
   description: manage goals
   usage: goal [options] <command>
   commands:
