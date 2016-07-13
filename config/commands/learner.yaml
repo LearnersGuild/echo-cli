@@ -2,6 +2,7 @@
 ---
 command:
   name: learner
+  _inactive: true
   description: manage learners
   usage: learner [options] <command>
   commands:

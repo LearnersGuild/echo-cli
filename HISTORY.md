@@ -1,10 +1,14 @@
 # History
 
+#### 0.14.0
+- add `/retro` command
+- remove `/log` command
+
 #### 0.13.2
 - bump subcli to 0.2.3
 
 #### 0.13.2
-- fixup /vote usage
+- fixup `/vote` usage
 
 #### 0.13.0
 - Added support for specifying project name in `/log` commands

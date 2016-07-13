@@ -6,11 +6,9 @@ export const {parse, usage, commandDescriptor} = loadCommand('profile')
 export const invoke = composeInvoke(parse, usage, (args, notify, options) => {
   const {
     formatMessage,
-    formatUsage,
   } = options
   if (args._.length > 0) {
-    notify(formatUsage(usage()))
-    return Promise.resolve()
+    return Promise.reject('Invalid arguments. Try --help for usage.')
   }
 
   notify(formatMessage('Loading your profile ...'))
