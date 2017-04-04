@@ -3,20 +3,11 @@
 command:
   name: review
   description: provide feedback on a project
-  usage: review [options] <project>
-  options:
-    -
-      name: completeness
-      abbr: c
-      help: A score between 1-100 indicating how complete you believe the project is.
-    -
-      name: quality
-      abbr: q
-      help: A score between 1-100 indicating your perception of the quality of this project.
+  usage: review <project> <completeness>
   examples:
     -
       example: 'review #fantastic-falcon'
       description: Show review status and artifact URL for the fantastic-falcon project.
     -
-      example: 'review #fantastic-falcon --completeness 89 --quality 93'
-      description: Rate the completeness and quality of the fantastic-falcon project.
+      example: 'review #fantastic-falcon 89'
+      description: Rate the completeness of the fantastic-falcon project.
