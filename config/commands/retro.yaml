@@ -6,8 +6,8 @@ command:
   usage: retro [options] [<project id>]
   examples:
     -
-      example: 'retro #stable-snake'
-      description: 'Begin retrospective survey for the #stable-snake project'
+      example: 'retro stable-snake'
+      description: 'Begin retrospective survey for the stable-snake project'
     -
       example: 'retro'
       description: Begin retrospective survey for your current project

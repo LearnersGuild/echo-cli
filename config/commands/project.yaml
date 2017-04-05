@@ -11,8 +11,8 @@ command:
       usage: set-artifact [options] <project id> <url>
       examples:
         -
-          example: 'project set-artifact #bad-lemurs-12 https://github.com/reactjs/redux'
-          description: 'Set the artifact for the #bad-lemurs-12 project.'
+          example: 'project set-artifact bad-lemurs-12 https://github.com/reactjs/redux'
+          description: 'Set the artifact for the bad-lemurs-12 project.'
     -
       name: list
       description: List all active projects.
@@ -23,33 +23,10 @@ command:
           abbr: r
           boolean: true
           help: List projects that are in review.
-    -
-      name: status
-      description: Check status of a project.
-      usage: status [options] <id>
-      _inactive: true
-      examples:
-        -
-          example: 'project status #bad-lemurs-12'
-          description: 'View status of project with id #bad-lemurs-12.'
-    -
-      name: show
-      description: Show a particular project.
-      usage: show [options] <id>
-      _inactive: true
-      examples:
-        -
-          example: 'project show #bad-lemurs-12'
-          description: 'Show project with id #bad-lemurs-12.'
-    -
-      name: search
-      description: Search for projects by title.
-      usage: search [options] <query>
-      _inactive: true
   examples:
     -
-      example: 'project set-artifact #bad-lemurs-12 https://github.com/reactjs/redux'
-      description: 'Set the artifact for the #bad-lemurs-12 project.'
+      example: 'project set-artifact bad-lemurs-12 https://github.com/reactjs/redux'
+      description: 'Set the artifact for the bad-lemurs-12 project.'
     -
       example: project list -r
       description: List projects that are in review.
