@@ -1,39 +1,64 @@
 import path from 'path'
 import fs from 'fs'
 import util from 'util'
+import minimist from 'minimist'
+import gitConfig from 'git-config'
 import fetch from 'isomorphic-fetch'
 import encodeAsForm from 'form-urlencoded'
 
 const LGRC_FILENAME = path.join(process.env.HOME, '.lgrc')
 
-function getUserOptions() {
-  try {
-    const stats = fs.statSync(LGRC_FILENAME)
-    if (stats.isFile()) {
-      const userOptions = JSON.parse(fs.readFileSync(LGRC_FILENAME).toString())
-      return userOptions
-    }
-  } catch (err) {
-    return null
+function getOptions(opts) {
+  const options = {
+    appBaseURL: (process.env.NODE_ENV === 'production' ?
+      'https://game.learnersguild.org' :
+      'http://game.learnersguild.dev'),
   }
+  if (opts.token) {
+    if (!opts.handle) {
+      const {github: {user: handle}} = gitConfig.sync()
+      options.handle = handle
+    }
+  } else {
+    try {
+      const stats = fs.statSync(LGRC_FILENAME)
+      if (stats.isFile()) {
+        const userOptions = JSON.parse(fs.readFileSync(LGRC_FILENAME).toString())
+        options.lgJWT = userOptions.lgJWT
+        options.handle = userOptions.lgUser.handle
+      }
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        throw err
+      }
+      // ignore -- couldn't find LGRC_FILENAME
+    }
+  }
+
+  return options
 }
 
 function invokeCommandAPI(command, text, options) {
-  process.env.APP_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://game.learnersguild.org' : 'http://game.learnersguild.dev'
-
-  const body = encodeAsForm({
+  const apiURL = `${options.appBaseURL}/command`
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Accept': 'application/json',
+  }
+  if (options.lgJWT) {
+    headers.Authorization = `Bearer ${options.lgJWT}`
+  }
+  const body = {
     command: `/${command}`,
     text,
-  })
-  const apiURL = `${process.env.APP_BASE_URL}/command`
+  }
+  if (options.handle && options.token) {
+    body.token = options.token
+    body.user_name = options.handle // eslint-disable-line camelcase
+  }
   return fetch(apiURL, {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${options.lgJWT}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
-    },
-    body,
+    headers,
+    body: encodeAsForm(body),
   })
     .then(resp => {
       return resp.json()
@@ -50,13 +75,15 @@ function invokeCommandAPI(command, text, options) {
     })
 }
 
-function run(commandAndArgv) {
-  const options = Object.assign({}, getUserOptions(), {maxWidth: process.stdout.columns})
-  if (!options) {
-    throw new Error(`*** Error: No Learners Guild RC file found in ${LGRC_FILENAME} -- try creating one.`)
+function run(opts, argv) {
+  const options = {...getOptions(opts), ...opts}
+  if (!options.lgJWT) {
+    if (!options.handle && !options.token) {
+      throw new Error('You must authenticate. Try --help.')
+    }
   }
-  const [commandName, ...argv] = commandAndArgv
-  return invokeCommandAPI(commandName, argv.join(' '), options)
+  const [commandName, ...args] = argv
+  return invokeCommandAPI(commandName, args.join(' '), options)
 }
 
 function printResult(result) {
@@ -66,13 +93,43 @@ function printResult(result) {
   }
   console.info(result.text)
   const attachmentTexts = (result.attachments || []).map(attachment => attachment.text)
-  console.info('-> ', attachmentTexts.join('\n-> '))
+  if (attachmentTexts.length > 0) {
+    console.info('-> ', attachmentTexts.join('\n-> '))
+  }
+}
+
+function usage() {
+  return `
+Usage: npm run command -- [opts] CMD [cmd-opts] [SUBCMD [subcmd-opts]]
+
+Options:
+  --help             Print this help message
+
+Auth using token and handle:
+  --token=TOKEN      CLI command token to send to the API
+
+  --handle=HANDLE    run command as the user with this handle
+                     (may also be read from ~/.gitconfig file)
+
+Auth using JWT:
+  --lgJWT=JWT        Learners Guild JWT to use as authentication
+                     (may also be read from ~/.lgrc file)
+`
 }
 
 if (!module.parent) {
   /* eslint-disable xo/no-process-exit */
   const argv = process.argv.slice(2)
-  run(argv)
+  const cmdIdx = argv.findIndex(arg => !arg.match(/^-/))
+  const runArgv = argv.slice(0, cmdIdx)
+  const cmdArgv = argv.slice(cmdIdx)
+  const opts = minimist(runArgv)
+  if (opts.help) {
+    console.info(usage())
+    process.exit(0)
+  }
+  const {help, _, ...filteredOpts} = opts
+  run(filteredOpts, cmdArgv)
     .then(result => {
       printResult(result)
       process.exit(0)
