@@ -52,15 +52,8 @@ It's worth noting that the attributes are an extension of [cliclopts][cliclopts]
       ```javascript
       import {vote} from '@learnersguild/game-cli'
 
-      const options = {
-        lgJWT: '<LG user SSO JWT token>',
-        lgUser: {
-          // ... LG user attributes
-        },
-      }
-
-      const args = vote.parse(['44', '45'], options)
-      const usageText = vote.usage(args, options)
+      const args = vote.parse(['44', '45'])
+      const usageText = vote.usage(args)
       if (usageText) {
         console.info(usageText)
         return 1
@@ -75,22 +68,21 @@ There's a built-in command-runner that can be used for development / testing. It
 
         $ npm run command -- vote 44 45
 
-The command runner expects a `~/.lgrc` file to be present with attributes that will be passed to the invoke command. Without such a file, the command runner will not work. For example:
+The command runner supports different ways to authenticate / impersonate. The easiest way is to find the `CLI_COMMAND_TOKEN` environment variable, and send it along with the desired `handle` for the user as whom you'd like to authenticate. For example:
+
+        $ npm run command -- --token=abcd1234zyxw9876 --handle=joeschmoe vote 44 45
+
+If you don't pass the `handle` option, the command runner will try to deduce it from your `~/.gitconfig` by pulling the `user` attribute from the `[github]` section.
+
+Alternatively, you can authenticate using a non-expired JWT that you can steal from your browser cookie using the browser developer tools. To do this, you can either pass that JWT along via the `lgJWT` option. For example:
+
+        $ npm run command -- --lgJWT=<SUPER LONG TOKEN> vote 44 45
+
+If you don't pass the `lgJWT` option, the command runner will try to deduce it from a `~/.lgrc` file that looks something like this:
 
 ```json
 {
   "lgJWT" : "<LONG SSO JWT TOKEN>",
-  "lgUser" : {
-    "id" : "00000000-1111-2222-3333-444444444444",
-    "name" : "John Doe",
-    "handle" : "johndoe2016",
-    "email" : "johndoe2016@gmail.com",
-    "timezone" : "America/Los_Angeles",
-    "phone" : 5103456789,
-    "roles" : [
-       "player"
-    ]
-  }
 }
 ```
 

@@ -19,7 +19,7 @@ function getOptions(opts) {
       const {github: {user: handle}} = gitConfig.sync()
       options.handle = handle
     }
-  } else {
+  } else if (!opts.lgJWT) {
     try {
       const stats = fs.statSync(LGRC_FILENAME)
       if (stats.isFile()) {
