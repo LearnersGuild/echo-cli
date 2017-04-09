@@ -128,7 +128,7 @@ if (!module.parent) {
     console.info(usage())
     process.exit(0)
   }
-  const {help, _, ...filteredOpts} = opts
+  const {help, _, ...filteredOpts} = opts // eslint-disable-line no-unused-vars
   run(filteredOpts, cmdArgv)
     .then(result => {
       printResult(result)
