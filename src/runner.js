@@ -66,7 +66,9 @@ function invokeCommandAPI(command, text, options) {
           if (resp.ok) {
             return result
           }
-          throw new Error(result.text || result)
+          const err = new Error(result.text || result)
+          err.result = result
+          throw err
         })
         .catch(err => {
           console.error(`ERROR invoking ${apiURL}: ${resp.status} ${resp.statusText}`)
@@ -86,15 +88,15 @@ function run(opts, argv) {
   return invokeCommandAPI(commandName, args.join(' '), options)
 }
 
-function printResult(result) {
+function printResult(result, log = console.info) {
   if (!result.text) {
-    console.info(util.inspect(result, {depth: 4}))
+    log(util.inspect(result, {depth: 4}))
     return
   }
-  console.info(result.text)
+  log(result.text)
   const attachmentTexts = (result.attachments || []).map(attachment => attachment.text)
   if (attachmentTexts.length > 0) {
-    console.info('-> ', attachmentTexts.join('\n-> '))
+    log('-> ', attachmentTexts.join('\n-> '))
   }
 }
 
@@ -121,7 +123,7 @@ if (!module.parent) {
   /* eslint-disable xo/no-process-exit */
   const argv = process.argv.slice(2)
   const cmdIdx = argv.findIndex(arg => !arg.match(/^-/))
-  const runArgv = argv.slice(0, cmdIdx)
+  const runArgv = argv.slice(0, (cmdIdx >= 0 ? cmdIdx : argv.length + 1))
   const cmdArgv = argv.slice(cmdIdx)
   const opts = minimist(runArgv)
   if (opts.help) {
@@ -135,7 +137,11 @@ if (!module.parent) {
       process.exit(0)
     })
     .catch(err => {
-      console.error(err.stack || err.message || err)
+      if (err.result) {
+        printResult(err.result, console.error)
+      } else {
+        console.error(err.stack || err.message || err)
+      }
       process.exit(-1)
     })
 }
