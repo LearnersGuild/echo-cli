@@ -1,5 +1,9 @@
 # History
 
+#### 2.1.3
+
+- In `cycle init`, change hours from an option to an argument.
+
 #### 1.3.0
 - Add `--hours` option for `cycle init`.
 
