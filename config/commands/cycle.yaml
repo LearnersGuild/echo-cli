@@ -8,11 +8,7 @@ command:
     -
       name: init
       description: Create a new Cycle
-      usage: init [options]
-      options:
-        -
-          name: hours
-          help: The default expected hours for projects in this cycle.
+      usage: init [options] <hours>
     -
       name: launch
       description: Tally votes and create project teams.
@@ -31,7 +27,7 @@ command:
       example: cycle init --help
       description: Get help on initializing a cycle.
     -
-      example: cycle init --hours=32
+      example: cycle init 32
       description: Initialize a cycle that expects 32 hours of work for each project.
     -
       example: cycle reflect
