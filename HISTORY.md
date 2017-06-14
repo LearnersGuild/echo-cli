@@ -1,5 +1,9 @@
 # History
 
+#### 2.1.4
+
+- Change hard coded game url to echo.learnersguild.org in runner
+
 #### 2.1.3
 
 - In `cycle init`, change hours from an option to an argument.

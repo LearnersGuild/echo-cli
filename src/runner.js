@@ -11,8 +11,8 @@ const LGRC_FILENAME = path.join(process.env.HOME, '.lgrc')
 function getOptions(opts) {
   const options = {
     appBaseURL: (process.env.NODE_ENV === 'production' ?
-      'https://game.learnersguild.org' :
-      'http://game.learnersguild.dev'),
+      'https://echo.learnersguild.org' :
+      'http://echo.learnersguild.dev'),
   }
   if (opts.token) {
     if (!opts.handle) {
