@@ -1,10 +1,10 @@
-# game-cli
+# echo-cli
 
 [![Code Climate GPA](https://codeclimate.com/repos/579a59533f9350008b001b86/badges/204a213385078563eb5d/gpa.svg)](https://codeclimate.com/repos/579a59533f9350008b001b86/feed)
 [![Code Climate Issue Count](https://codeclimate.com/repos/579a59533f9350008b001b86/badges/204a213385078563eb5d/issue_count.svg)](https://codeclimate.com/repos/579a59533f9350008b001b86/feed)
 [![Test Coverage](https://codeclimate.com/repos/579a59533f9350008b001b86/badges/204a213385078563eb5d/coverage.svg)](https://codeclimate.com/repos/579a59533f9350008b001b86/coverage)
 
-Learners Guild game command-line interface (CLI).
+Learners Guild echo command-line interface (CLI).
 
 
 ## Getting Started
@@ -45,12 +45,12 @@ It's worth noting that the attributes are an extension of [cliclopts][cliclopts]
 
 1. Install the module in your project
 
-        $ npm install --save @learnersguild/game-cli
+        $ npm install --save @learnersguild/echo-cli
 
 2. Use whichever command modules you want by importing them
 
       ```javascript
-      import {vote} from '@learnersguild/game-cli'
+      import {vote} from '@learnersguild/echo-cli'
 
       const args = vote.parse(['44', '45'])
       const usageText = vote.usage(args)

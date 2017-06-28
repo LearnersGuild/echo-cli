@@ -1,6 +1,6 @@
 {
-  "name": "@learnersguild/game-cli",
-  "version": "2.1.4",
+  "name": "@learnersguild/echo-cli",
+  "version": "2.1.5",
   "description": "Option parser for Learners Guild commands.",
   "main": "lib",
   "scripts": {
@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LearnersGuild/game-cli.git"
+    "url": "git+https://github.com/LearnersGuild/echo-cli.git"
   },
   "author": {
     "name": "Jeffrey Wescott",

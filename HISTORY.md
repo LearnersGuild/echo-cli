@@ -1,8 +1,11 @@
 # History
 
+#### 2.1.5
+- renamed to `echo-cli`.
+
 #### 2.1.4
 
-- Change hard coded game url to echo.learnersguild.org in runner
+- Change hard coded service url to echo.learnersguild.org in runner
 
 #### 2.1.3
 
@@ -26,7 +29,7 @@
 #### 1.0.0
 - add `/retro` command
 - remove `/log` command
-- update `/review` command to match game API changes related to new-retro
+- update `/review` command to match echo API changes related to new-retro
 
 #### 0.14.0
 - stop expecting `lgPlayer` -- use `lgUser` and `lgUser.roles`
