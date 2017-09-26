@@ -1,8 +1,8 @@
 # echo-cli
 
-- [![Code Climate GPA](https://codeclimate.com/repos/579a59533f9350008b001b86/badges/204a213385078563eb5d/gpa.svg)](https://codeclimate.com/repos/579a59533f9350008b001b86/feed)
-- [![Code Climate Issue Count](https://codeclimate.com/repos/579a59533f9350008b001b86/badges/204a213385078563eb5d/issue_count.svg)](https://codeclimate.com/repos/579a59533f9350008b001b86/feed)
-- [![Test Coverage](https://codeclimate.com/repos/579a59533f9350008b001b86/badges/204a213385078563eb5d/coverage.svg)](https://codeclimate.com/repos/579a59533f9350008b001b86/coverage)
+[![Code Climate](https://codeclimate.com/github/LearnersGuild/echo-cli/badges/gpa.svg)](https://codeclimate.com/github/LearnersGuild/echo-cli)
+[![Issue Count](https://codeclimate.com/github/LearnersGuild/echo-cli/badges/issue_count.svg)](https://codeclimate.com/github/LearnersGuild/echo-cli)
+[![Test Coverage](https://codeclimate.com/github/LearnersGuild/echo-cli/badges/coverage.svg)](https://codeclimate.com/github/LearnersGuild/echo-cli/coverage)
 
 Learners Guild echo command-line interface (CLI).
 
